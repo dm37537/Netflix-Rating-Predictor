@@ -1,6 +1,24 @@
 import sys
 import json 
 
+from functools import reduce
+from math import sqrt
+from sys import version
+from timeit import timeit
+
+def rmse_zip_list_sum (a, p) :
+    """
+    O(n) in space
+    O(n) in time
+    """
+    assert(hasattr(a, "__len__"))
+    assert(hasattr(p, "__len__"))
+    assert(hasattr(a, "__iter__"))
+    assert(hasattr(p, "__iter__"))
+    z = zip(a, p)
+    v = sum([(x - y) ** 2 for x, y in z])
+    return sqrt(v / len(a))
+
 def netflix_read (s) :
     """
     """
@@ -49,11 +67,35 @@ def netflix_solve (r, w) :
     """
     usr_avg_cache = json.load(open('/u/dameng/CS373-test/netflix-tests/pma459-usrAvgCache.json', 'r'))
     mov_avg_cache = json.load(open('/u/dameng/CS373-test/netflix-tests/pma459-mvAvgCache.json', 'r'))
+    rating_cache = json.load(open('/u/dameng/CS373-test/netflix-tests/pma459-answersCache.json', 'r'))
     probe_dict = probe_read(open('/u/dameng/CS373/probe.txt', 'r'))
+
     print(usr_avg_cache['7'])
     print(mov_avg_cache[2])
     print(probe_dict['10001'])
-    
+
+    predict = {}
+    predict_ratings = []
+    actual_ratings = []
+
+    for k,v in probe_dict.items():
+        mov_avg = mov_avg_cache[int(k)]
+        l = []
+        for u in v:
+            usr_avg = usr_avg_cache[u]
+            p_v = round((mov_avg + usr_avg) // 2)
+            l.append(p_v)
+            l.append(u)
+            predict_ratings.append(p_v)
+            actual_ratings.append(rating_cache[k][u])
+            predict[k] = l
+
+
+    print (len(predict_ratings))
+    print (len(actual_ratings))
+    print (rmse_zip_list_sum(predict_ratings, actual_ratings))
+    print (predict['1'])
+
     """
     for s in r :
         i, j, k = netflix_read(s)
