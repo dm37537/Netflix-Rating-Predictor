@@ -3,8 +3,8 @@ import json
 
 from functools import reduce
 from math import sqrt
-from sys import version
-from timeit import timeit
+import math
+from collections import namedtuple
 
 def rmse_zip_list_sum (a, p) :
     """
@@ -19,16 +19,6 @@ def rmse_zip_list_sum (a, p) :
     v = sum([(x - y) ** 2 for x, y in z])
     return sqrt(v / len(a))
 
-def netflix_read (s) :
-    """
-    """
-
-    if len(s) < 7:
-    	a = s.split(':')
-    	return [str(a[0]), str(a[1]), ""]
-    else:
-	    a = s.split(',')
-	    return [str(a[0]), str(a[1]), str(a[2])]
 
 def probe_read(f):
     
@@ -69,21 +59,33 @@ def netflix_solve (r, w) :
     mov_avg_cache = json.load(open('/u/dameng/CS373-test/netflix-tests/pma459-mvAvgCache.json', 'r'))
     rating_cache = json.load(open('/u/dameng/CS373-test/netflix-tests/pma459-answersCache.json', 'r'))
     probe_dict = probe_read(open('/u/dameng/CS373/probe.txt', 'r'))
+    Stats = namedtuple('Stats', 'mean, stdev, min_rating, q1, median, q3, max_rating, skew, size')
+    cache = json.load(open('/u/dameng/CS373-test/netflix-tests/jab5948-movie-stats.json', 'r'))
+    
 
-    print(usr_avg_cache['7'])
-    print(mov_avg_cache[2])
-    print(probe_dict['10001'])
+    #print(usr_avg_cache['7'])
+    #print(mov_avg_cache[2])
+    #print(probe_dict['10001'])
 
     predict = {}
     predict_ratings = []
     actual_ratings = []
 
     for k,v in probe_dict.items():
-        mov_avg = mov_avg_cache[int(k)]
+        movie_stats = Stats(*cache[int(k)])
+        mov_avg = movie_stats.mean
+        mov_med = movie_stats.median
+        mov_q3 = movie_stats.q3
+        mov_q1 = movie_stats.q1
+        #mov_avg = mov_avg_cache[int(k)]
         l = []
         for u in v:
             usr_avg = usr_avg_cache[u]
-            p_v = round((mov_avg + usr_avg) // 2)
+            p_dv = (mov_avg + usr_avg) // 2
+            if abs(p_dv - usr_avg) > 0.5 :
+                p_v = p_dv + 1
+            else :
+                p_v = p_dv        
             l.append(p_v)
             l.append(u)
             predict_ratings.append(p_v)
