@@ -20,17 +20,6 @@ def rmse_zip_list_sum (a, p) :
     v = sum([(x - y) ** 2 for x, y in z])
     return sqrt(v / len(a))
 
-def netflix_read (s) :
-    """
-    """
-
-    if len(s) < 7:
-    	a = s.split(':')
-    	return [str(a[0]), str(a[1]), ""]
-    else:
-	    a = s.split(',')
-	    return [str(a[0]), str(a[1]), str(a[2])]
-
 def probe_read(f):
     
     l = {}
@@ -49,16 +38,6 @@ def probe_read(f):
             l[movie_id] = u
     return l
 
-def netflix_print (w, i, j, k) :
-    """
-    print three ints
-    w a writer
-    i the beginning of the range, inclusive
-    j the end       of the range, inclusive
-    v the max cycle length
-    """
-    w.write(str(i) + " " + str(j) + " " + str(k) + "\n")
-
 def netflix_solve (r, w) :
     """
     r a reader
@@ -69,6 +48,7 @@ def netflix_solve (r, w) :
     rating_cache = json.load(open('/u/mck782/netflix-tests/pma459-answersCache.json', 'r'))
     cache = json.load(open('/u/mck782/netflix-tests/jab5948-movie-stats.json', 'r'))
     cache_users = json.load(open('/u/mck782/netflix-tests/jab5948-user-stats.json', 'r'))
+    #probe_dict = probe_read(open('./probe.txt', 'r'))
     probe_dict = probe_read(r)
     movie_date_cache = json.load(open('/u/mck782/netflix-tests/af22574-movieDates.json', 'r'))
     user_decade_cache = json.load(open('/u/mck782/netflix-tests/cdm2697-userRatingsAveragedOver10yInterval.json', 'r'))
@@ -84,7 +64,7 @@ def netflix_solve (r, w) :
 
     for k in mov_avg_cache:
         if k > 0 :
-            total += k
+            total += k  
             count += 1
     overall_mov_avg = total / count
 
@@ -97,16 +77,14 @@ def netflix_solve (r, w) :
 
     overall_usr_avg = total/count
 
-    predict = {}
     predict_ratings = []
     actual_ratings = []
-
     for k,v in probe_dict.items():
-        w.write(k + ":" + "\n")
+        #w.write(k + ":" + "\n")
         mov_year = movie_date_cache[k]
         mov_year = list(mov_year)
         mov_year[-1] = '0'
-        mov_avg = mov_avg_cache[int(k)]
+        mov_avg = cache[int(k)][0]
         movie_stats = Stats(*cache[int(k)])
         l = []
         for u in v:
@@ -115,28 +93,46 @@ def netflix_solve (r, w) :
             for y, a, n in usr_decade_avg:
                 y = list(y)
                 y = y[0:4]
-                if mov_year == list(y):
-                    mov_d_avg = int(a)
-            usr_avg = usr_avg_cache[u]
+                if mov_year == list(y) :
+                    mov_d_avg = float(a)
+            usr_avg = cache_users[u][0]
             user_stats = Stats(*cache_users[u])
 
-            actual_mov_avg = mov_avg + (mov_avg - overall_mov_avg)
-            actual_usr_avg = usr_avg + (usr_avg - overall_usr_avg)
+            # get trend by compare current average with overall average
+            mov_trend = (mov_avg - overall_mov_avg)
+            usr_trend = (usr_avg - overall_usr_avg)
 
-
-            if (mov_d_avg == 0):
-                p_v = round(((user_stats.median + movie_stats.median + mov_avg + usr_avg + actual_mov_avg + actual_usr_avg)/6), 1)
+            actual_mov_avg = mov_avg + mov_trend
+            actual_usr_avg = usr_avg + usr_trend    
+            
+            if mov_trend > 0:
+                actual_mov_avg += 0.06
             else:
-                p_v = round(((user_stats.median + movie_stats.median + mov_avg + usr_avg + mov_d_avg + actual_mov_avg + actual_usr_avg)/7), 1)
+                actual_mov_avg -= 1.4
+
+            if usr_trend > 0:
+                actual_usr_avg += 0.02
+            else:
+                actual_usr_avg -= 0.7
+
+            
+            if (mov_d_avg == 0):
+                p_v = round(((user_stats.median + movie_stats.median + mov_avg + usr_avg + actual_mov_avg + actual_usr_avg)/6), 10)
+            else:
+                #modify according to decade rating value
+                if mov_avg - mov_d_avg < 0 :
+                    mov_d_avg += 0.26
+                else:
+                    mov_d_avg -= 0.26
+                p_v = round(((user_stats.median + movie_stats.median + mov_avg + usr_avg + mov_d_avg + actual_mov_avg + actual_usr_avg)/7), 10)
             l.append(p_v)
             l.append(u)
             predict_ratings.append(p_v)
             actual_ratings.append(rating_cache[k][u])
-            predict[k] = l
-            w.write(str(p_v) + "\n")
-
-
+            #w.write(str(p_v) + "\n")   
+ 
     assert(len(predict_ratings) == len(actual_ratings))
-    print (rmse_zip_list_sum(predict_ratings, actual_ratings))
-    #print (predict['1'])
+    print (str(rmse_zip_list_sum(predict_ratings, actual_ratings)))
+
+
 
