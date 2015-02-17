@@ -64,14 +64,14 @@ def netflix_solve (r, w) :
     r a reader
     w a writer
     """
-    usr_avg_cache = json.load(open('/u/aizhuli/cs373/netflix-tests/pma459-usrAvgCache.json', 'r'))
-    mov_avg_cache = json.load(open('/u/aizhuli/cs373/netflix-tests/pma459-mvAvgCache.json', 'r'))
-    rating_cache = json.load(open('/u/aizhuli/cs373/netflix-tests/pma459-answersCache.json', 'r'))
-    cache = json.load(open('/u/aizhuli/cs373/netflix-tests/jab5948-movie-stats.json', 'r'))
-    cache_users = json.load(open('/u/aizhuli/cs373/netflix-tests/jab5948-user-stats.json', 'r'))
-    probe_dict = probe_read(open('/u/downing/cs/netflix/probe.txt', 'r'))
-    movie_date_cache = json.load(open('/u/aizhuli/cs373/netflix-tests/af22574-movieDates.json', 'r'))
-    user_decade_cache = json.load(open('/u/aizhuli/cs373/netflix-tests/cdm2697-userRatingsAveragedOver10yInterval.json', 'r'))
+    usr_avg_cache = json.load(open('/u/mck782/netflix-tests/pma459-usrAvgCache.json', 'r'))
+    mov_avg_cache = json.load(open('/u/mck782/netflix-tests/pma459-mvAvgCache.json', 'r'))
+    rating_cache = json.load(open('/u/mck782/netflix-tests/pma459-answersCache.json', 'r'))
+    cache = json.load(open('/u/mck782/netflix-tests/jab5948-movie-stats.json', 'r'))
+    cache_users = json.load(open('/u/mck782/netflix-tests/jab5948-user-stats.json', 'r'))
+    probe_dict = probe_read(open('./RunNetflix.in', 'r'))
+    movie_date_cache = json.load(open('/u/mck782/netflix-tests/af22574-movieDates.json', 'r'))
+    user_decade_cache = json.load(open('/u/mck782/netflix-tests/cdm2697-userRatingsAveragedOver10yInterval.json', 'r'))
     Stats = namedtuple('Stats', 'mean, stdev, min_rating, q1, median, q3, max_rating, skew, size')
 
     #print(len(cache))
@@ -135,5 +135,5 @@ def netflix_solve (r, w) :
 
     assert(len(predict_ratings) == len(actual_ratings))
     print (rmse_zip_list_sum(predict_ratings, actual_ratings))
-
+    #print (predict['1'])
 
