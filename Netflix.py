@@ -135,14 +135,5 @@ def netflix_solve (r, w) :
 
     assert(len(predict_ratings) == len(actual_ratings))
     print (rmse_zip_list_sum(predict_ratings, actual_ratings))
-    #print (predict['1'])
-
-    """
-    for s in r :
-        i, j, k = netflix_read(s)
-        netflix_print(w, i, j, k)
-    """
 
 
-if __name__ == "__main__" :
-	netflix_solve(sys.stdin, sys.stdout)
