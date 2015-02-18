@@ -24,10 +24,8 @@ def probe_read(f):
     
     l = {}
     movie_id = ''
-    #users = []
 
     for s in f:
-        #print (s[-2])
         if s[-2] == ':':
             movie_id = s[0:-2]
             users =[]
