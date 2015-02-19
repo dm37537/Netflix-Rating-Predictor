@@ -49,7 +49,7 @@ class TestNetflix (TestCase) :
         self.assertEqual(s['2049'], ['10111', '3451', '101'])
 
     def test_probe_read_4 (self) :
-        f = StringIO("2045:\n101\n31\n10\n")
+        f = StringIO("2045:\n101\n31\n10")
         s = probe_read(f)
         self.assertEqual(type(s), dict)
         self.assertEqual(s['2045'], ['101', '31', '10'])

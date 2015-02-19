@@ -20,3 +20,4 @@ clean:
 	rm -f RunNetflix.tmp
 	rm -f TestNetflix.out
 	rm -rf __pycache__
+	
