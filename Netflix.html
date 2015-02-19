@@ -156,8 +156,13 @@ Raises&nbsp;ValueError&nbsp;if&nbsp;the&nbsp;value&nbsp;is&nbsp;not&nbsp;present
     
 <tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl><dt><a name="-netflix_solve"><strong>netflix_solve</strong></a>(r, w)</dt><dd><tt>r&nbsp;a&nbsp;reader<br>
-w&nbsp;a&nbsp;writer</tt></dd></dl>
- <dl><dt><a name="-probe_read"><strong>probe_read</strong></a>(f)</dt><dd><tt>f&nbsp;is&nbsp;an&nbsp;input&nbsp;stream</tt></dd></dl>
+w&nbsp;a&nbsp;writer<br>
+read&nbsp;in&nbsp;information&nbsp;and&nbsp;predict&nbsp;ratings&nbsp;according&nbsp;to&nbsp;our&nbsp;algorithm<br>
+algorithm:&nbsp;find&nbsp;the&nbsp;movie&nbsp;rating&nbsp;trend&nbsp;and&nbsp;make&nbsp;adjustment,&nbsp;then&nbsp;get&nbsp;the&nbsp;average&nbsp;of&nbsp;everything&nbsp;<br>
+write&nbsp;out&nbsp;predicted&nbsp;ratings&nbsp;and&nbsp;RMSE</tt></dd></dl>
+ <dl><dt><a name="-probe_read"><strong>probe_read</strong></a>(f)</dt><dd><tt>f&nbsp;is&nbsp;an&nbsp;input&nbsp;stream<br>
+read&nbsp;input&nbsp;file<br>
+return&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;movies&nbsp;and&nbsp;users</tt></dd></dl>
  <dl><dt><a name="-reduce"><strong>reduce</strong></a>(...)</dt><dd><tt><a href="#-reduce">reduce</a>(function,&nbsp;sequence[,&nbsp;initial])&nbsp;-&gt;&nbsp;value<br>
 &nbsp;<br>
 Apply&nbsp;a&nbsp;function&nbsp;of&nbsp;two&nbsp;arguments&nbsp;cumulatively&nbsp;to&nbsp;the&nbsp;items&nbsp;of&nbsp;a&nbsp;sequence,<br>
@@ -169,7 +174,8 @@ sequence&nbsp;is&nbsp;empty.</tt></dd></dl>
  <dl><dt><a name="-rmse_zip_list_sum"><strong>rmse_zip_list_sum</strong></a>(a, p)</dt><dd><tt>O(n)&nbsp;in&nbsp;space<br>
 O(n)&nbsp;in&nbsp;time<br>
 a&nbsp;is&nbsp;a&nbsp;list<br>
-p&nbsp;is&nbsp;a&nbsp;list</tt></dd></dl>
+p&nbsp;is&nbsp;a&nbsp;list<br>
+return&nbsp;RMSE&nbsp;of&nbsp;a,&nbsp;p</tt></dd></dl>
  <dl><dt><a name="-sqrt"><strong>sqrt</strong></a>(...)</dt><dd><tt><a href="#-sqrt">sqrt</a>(x)<br>
 &nbsp;<br>
 Return&nbsp;the&nbsp;square&nbsp;root&nbsp;of&nbsp;x.</tt></dd></dl>

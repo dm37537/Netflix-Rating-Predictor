@@ -31,6 +31,7 @@ def rmse_zip_list_sum (a, p) :
     O(n) in time
     a is a list
     p is a list
+    return RMSE of a, p
     """
     assert(hasattr(a, "__len__"))
     assert(hasattr(p, "__len__"))
@@ -47,6 +48,8 @@ def rmse_zip_list_sum (a, p) :
 def probe_read(f):
     """
     f is an input stream
+    read input file
+    return a dictionary of movies and users
     """
     l = {}
     movie_id = ''
@@ -73,6 +76,9 @@ def netflix_solve (r, w) :
     """
     r a reader
     w a writer
+    read in information and predict ratings according to our algorithm
+    algorithm: find the movie rating trend and make adjustment, then get the average of everything 
+    write out predicted ratings and RMSE
     """
     #probe_dict = probe_read(open('/u/downing/cs/netflix/probe.txt', 'r'))
     probe_dict = probe_read(r)
