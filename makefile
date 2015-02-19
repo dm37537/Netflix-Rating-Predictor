@@ -6,8 +6,8 @@ Netflix.html: Netflix.py
 Netflix.log:
 	git log > Netflix.log
 
-RunNetflix.tmp: RunNetflix.py RunNetflix.in RunNetflix.out
-	RunNetflix.py < RunNetflix.in > RunNetflix.tmp
+RunNetflix.tmp: RunNetflix.py RunNetflix.in RunNetflix.out 
+	python3 RunNetflix.py < RunNetflix.in > RunNetflix.tmp
 	diff RunNetflix.tmp RunNetflix.out
 
 TestNetflix.out: TestNetflix.py
@@ -20,4 +20,3 @@ clean:
 	rm -f RunNetflix.tmp
 	rm -f TestNetflix.out
 	rm -rf __pycache__
-	

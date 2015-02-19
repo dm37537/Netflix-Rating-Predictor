@@ -98,6 +98,24 @@ class TestNetflix (TestCase) :
             netflix_solve(r, w)
         self.assertEqual(w.getvalue(), "10002:\n4.5\n3.7\n4.7\n4.2\n10003:\n2.7\nRMSE: 0.48")
 
+    def test_netflix_solve_null_year (self):
+        r = StringIO("4388:\n2493000\n1670719\n1359762")
+        w = StringIO()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            fxn()
+            netflix_solve(r, w)
+        self.assertEqual(w.getvalue(), "4388:\n3.2\n3.1\n2.7\nRMSE: 0.88")
+
+    def test_netflix_4 (self):
+        r = StringIO("10014:\n1626179\n1359761\n430376")
+        w = StringIO()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            fxn()
+            netflix_solve(r, w)
+        self.assertEqual(w.getvalue(), "10014:\n3.0\n3.9\n2.7\nRMSE: 0.88")
+
 
 # ----
 # main
