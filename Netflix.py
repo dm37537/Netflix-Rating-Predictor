@@ -57,7 +57,10 @@ def probe_read(f):
             l[movie_id] = users
         else:
             u = l[movie_id] 
-            u.append(s[:-1])
+            if s[-1] == '\n':
+                u.append(s[:-1])
+            else:
+                u.append(s)
             l[movie_id] = u
     return l
 
