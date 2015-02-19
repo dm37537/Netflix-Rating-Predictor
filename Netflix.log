@@ -1,0 +1,114 @@
+commit f163c80f3f76542255e8474568c06b62513de5a8
+Author: Da Meng <dameng@utexas.edu>
+Date:   Thu Feb 19 16:52:58 2015 -0600
+
+    added html file
+
+commit 7f7ab23ccd566b1cddc0caa39589b883aa491b1f
+Author: Da Meng <dameng@utexas.edu>
+Date:   Thu Feb 19 16:30:58 2015 -0600
+
+    edited test file
+
+commit eac4d4f29a267e0bfdf29b21b5243ac40cc91610
+Author: Da Meng <dameng@utexas.edu>
+Date:   Thu Feb 19 16:10:17 2015 -0600
+
+    add makefile
+
+commit 3bcd7e5adc4b35af5d3ef8187ee790c3810f1796
+Author: Da Meng <dameng@utexas.edu>
+Date:   Thu Feb 19 16:06:43 2015 -0600
+
+     modified input and output file, fixes #25
+
+commit 0ae0bd02925df0ee6e9aeaf31583af90d51a0fe9
+Author: Aizhuldyz Gabbassova <aigabbass90@gmail.com>
+Date:   Thu Feb 19 15:56:07 2015 -0600
+
+    fixes #23, fixes #24
+
+commit f875ce358249ecee77bbbaf46783d2e87553df8d
+Author: Aizhuldyz Gabbassova <aigabbass90@gmail.com>
+Date:   Thu Feb 19 15:26:21 2015 -0600
+
+    bug with order of output
+
+commit ca283e0adb74be53c45e6dc605e40fe052a5e7eb
+Author: Aizhuldyz Gabbassova <aigabbass90@gmail.com>
+Date:   Tue Feb 17 19:12:25 2015 -0600
+
+    added test cases for rmse and read
+
+commit d5c3fb03795bb9da3128314c1bf11357629cd311
+Author: Da Meng <dameng@utexas.edu>
+Date:   Tue Feb 17 00:39:49 2015 -0600
+
+    added magic number
+
+commit 82c4fb57a37363a34df0e14a6828bc80268420cb
+Author: Da Meng <dameng@utexas.edu>
+Date:   Mon Feb 16 21:42:24 2015 -0600
+
+    add output file
+
+commit dbdb1a4faf262b1d6a71d61326df732e47bd67e6
+Author: Da Meng <dameng@utexas.edu>
+Date:   Mon Feb 16 21:22:36 2015 -0600
+
+     added acceptance test
+
+commit e57849b150a471e1a61f3a5608f45eda4a1f9ea1
+Author: Aizhuldyz Gabbassova <aigabbass90@gmail.com>
+Date:   Mon Feb 16 21:19:26 2015 -0600
+
+    added run file
+
+commit 25fb784ded457acd5f93087d416e01ab6f3a7c04
+Merge: 3f76a2a 3b86925
+Author: Aizhuldyz Gabbassova <aigabbass90@gmail.com>
+Date:   Mon Feb 16 21:08:03 2015 -0600
+
+    rmse is 0.97
+
+commit 3f76a2a1d3809b1616a5625fbf37b54c6cc5f5aa
+Author: Aizhuldyz Gabbassova <aigabbass90@gmail.com>
+Date:   Mon Feb 16 21:06:06 2015 -0600
+
+    rmse is 0.97
+
+commit 3b86925b62c11602ebe31e2bdfae49365269a7eb
+Author: Da Meng <dameng@utexas.edu>
+Date:   Mon Feb 16 21:01:56 2015 -0600
+
+    Delete useless netflix.py
+
+commit e48d0f697b628040cbdbb860a6672d649fcb7042
+Author: Da Meng <dameng@utexas.edu>
+Date:   Sat Feb 14 21:56:44 2015 -0600
+
+    instead of 1.03, get 1.19, optimize to 1.08
+
+commit 03c6a8e1294bd2599d14db8c3f94498e3e89c876
+Author: Da Meng <dameng@utexas.edu>
+Date:   Thu Feb 12 17:07:45 2015 -0600
+
+    rmse 1.03
+
+commit 1027f42c092114183f988808c4650e620ed6e2f2
+Author: Da Meng <dameng@utexas.edu>
+Date:   Thu Feb 12 16:42:37 2015 -0600
+
+    read cache
+
+commit 9b6b84a410909ead94932c8e182b0342f165c058
+Author: Da Meng <dameng@utexas.edu>
+Date:   Thu Feb 12 14:23:34 2015 -0600
+
+    test read commit fixes #1, fixes #2, fixes #3
+
+commit 51fa253c979605277f70faafef5daf2ce8850784
+Author: Da Meng <dameng@utexas.edu>
+Date:   Wed Feb 11 19:28:14 2015 -0600
+
+    Initial commit
