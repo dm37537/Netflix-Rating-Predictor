@@ -48,7 +48,7 @@ class TestNetflix (TestCase) :
         self.assertEqual(type(s), dict)
         self.assertEqual(s['2049'], ['10111', '3451', '101'])
 
-    def test_probe_read_3 (self) :
+    def test_probe_read_4 (self) :
         f = StringIO("2045:\n101\n31\n10\n")
         s = probe_read(f)
         self.assertEqual(type(s), dict)
@@ -87,7 +87,7 @@ class TestNetflix (TestCase) :
             warnings.simplefilter("ignore")
             fxn()
             netflix_solve(r, w)
-        self.assertEqual(w.getvalue(), "15582:\n3.9\n4.3\n15581:\n3.4\nRMSE: 0.74")
+        self.assertEqual(w.getvalue(), "15581:\n3.4\n15582:\n3.9\n4.3\nRMSE: 0.74")
 
     def test_netflix_solve_2 (self):
         r = StringIO("10002:\n1450941\n1213181\n308502\n2581993\n10003:\n1515111\n")

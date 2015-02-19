@@ -7,6 +7,18 @@ from sys import version
 from timeit import timeit
 from collections import namedtuple
 
+"""
+open and load cache files
+"""
+usr_avg_cache = json.load(open('/u/mck782/netflix-tests/pma459-usrAvgCache.json', 'r'))
+mov_avg_cache = json.load(open('/u/mck782/netflix-tests/pma459-mvAvgCache.json', 'r'))
+rating_cache = json.load(open('/u/mck782/netflix-tests/pma459-answersCache.json', 'r'))
+cache = json.load(open('/u/mck782/netflix-tests/jab5948-movie-stats.json', 'r'))
+cache_users = json.load(open('/u/mck782/netflix-tests/jab5948-user-stats.json', 'r'))
+movie_date_cache = json.load(open('/u/mck782/netflix-tests/af22574-movieDates.json', 'r'))
+user_decade_cache = json.load(open('/u/mck782/netflix-tests/cdm2697-userRatingsAveragedOver10yInterval.json', 'r'))
+Stats = namedtuple('Stats', 'mean, stdev, min_rating, q1, median, q3, max_rating, skew, size')
+
 
 #------------------
 # rmse_zip_list_sum
@@ -16,6 +28,8 @@ def rmse_zip_list_sum (a, p) :
     """
     O(n) in space
     O(n) in time
+    a is a list
+    p is a list
     """
     assert(hasattr(a, "__len__"))
     assert(hasattr(p, "__len__"))
@@ -30,7 +44,9 @@ def rmse_zip_list_sum (a, p) :
 #-----------
 
 def probe_read(f):
-    
+    """
+    f is an input stream
+    """
     l = {}
     movie_id = ''
 
@@ -54,26 +70,6 @@ def netflix_solve (r, w) :
     r a reader
     w a writer
     """
-
-    """
-    open and load cache files
-    """
-    a = open('/u/mck782/netflix-tests/pma459-usrAvgCache.json', 'r')
-    usr_avg_cache = json.load(a)
-    b = open('/u/mck782/netflix-tests/pma459-mvAvgCache.json', 'r')
-    mov_avg_cache = json.load(b)
-    c = open('/u/mck782/netflix-tests/pma459-answersCache.json', 'r')
-    rating_cache = json.load(c)
-    d = open('/u/mck782/netflix-tests/jab5948-movie-stats.json', 'r')
-    cache = json.load(d)
-    e = open('/u/mck782/netflix-tests/jab5948-user-stats.json', 'r')
-    cache_users = json.load(e)
-    f = open('/u/mck782/netflix-tests/af22574-movieDates.json', 'r')
-    movie_date_cache = json.load(f)
-    g = open('/u/mck782/netflix-tests/cdm2697-userRatingsAveragedOver10yInterval.json', 'r')
-    user_decade_cache = json.load(g)
-    Stats = namedtuple('Stats', 'mean, stdev, min_rating, q1, median, q3, max_rating, skew, size')
-
     #probe_dict = probe_read(open('/u/downing/cs/netflix/probe.txt', 'r'))
     probe_dict = probe_read(r)
     total = 0
@@ -96,7 +92,7 @@ def netflix_solve (r, w) :
 
     predict_ratings = []
     actual_ratings = []
-    for k,v in probe_dict.items():
+    for k,v in sorted(probe_dict.items()):
         w.write(k + ":" + "\n")
         mov_year = movie_date_cache[k]
         mov_year = list(mov_year)
