@@ -7,6 +7,11 @@ from sys import version
 from timeit import timeit
 from collections import namedtuple
 
+
+#------------------
+# rmse_zip_list_sum
+#------------------
+
 def rmse_zip_list_sum (a, p) :
     """
     O(n) in space
@@ -19,6 +24,10 @@ def rmse_zip_list_sum (a, p) :
     z = zip(a, p)
     v = sum([(x - y) ** 2 for x, y in z])
     return sqrt(v / len(a))
+
+#-----------
+# probe_read
+#-----------
 
 def probe_read(f):
     
@@ -36,27 +45,37 @@ def probe_read(f):
             l[movie_id] = u
     return l
 
+#--------------
+# netflix_solve
+#--------------
+
 def netflix_solve (r, w) :
     """
     r a reader
     w a writer
     """
-    usr_avg_cache = json.load(open('/u/mck782/netflix-tests/pma459-usrAvgCache.json', 'r'))
-    mov_avg_cache = json.load(open('/u/mck782/netflix-tests/pma459-mvAvgCache.json', 'r'))
-    rating_cache = json.load(open('/u/mck782/netflix-tests/pma459-answersCache.json', 'r'))
-    cache = json.load(open('/u/mck782/netflix-tests/jab5948-movie-stats.json', 'r'))
-    cache_users = json.load(open('/u/mck782/netflix-tests/jab5948-user-stats.json', 'r'))
-    #probe_dict = probe_read(open('./probe.txt', 'r'))
-    probe_dict = probe_read(r)
-    movie_date_cache = json.load(open('/u/mck782/netflix-tests/af22574-movieDates.json', 'r'))
-    user_decade_cache = json.load(open('/u/mck782/netflix-tests/cdm2697-userRatingsAveragedOver10yInterval.json', 'r'))
+
+    """
+    open and load cache files
+    """
+    a = open('/u/mck782/netflix-tests/pma459-usrAvgCache.json', 'r')
+    usr_avg_cache = json.load(a)
+    b = open('/u/mck782/netflix-tests/pma459-mvAvgCache.json', 'r')
+    mov_avg_cache = json.load(b)
+    c = open('/u/mck782/netflix-tests/pma459-answersCache.json', 'r')
+    rating_cache = json.load(c)
+    d = open('/u/mck782/netflix-tests/jab5948-movie-stats.json', 'r')
+    cache = json.load(d)
+    e = open('/u/mck782/netflix-tests/jab5948-user-stats.json', 'r')
+    cache_users = json.load(e)
+    f = open('/u/mck782/netflix-tests/af22574-movieDates.json', 'r')
+    movie_date_cache = json.load(f)
+    g = open('/u/mck782/netflix-tests/cdm2697-userRatingsAveragedOver10yInterval.json', 'r')
+    user_decade_cache = json.load(g)
     Stats = namedtuple('Stats', 'mean, stdev, min_rating, q1, median, q3, max_rating, skew, size')
 
-    #print(len(cache))
-    #print(usr_avg_cache['7'])
-    #print(mov_avg_cache[2])
-    #print(probe_dict['10001'])
-
+    #probe_dict = probe_read(open('/u/downing/cs/netflix/probe.txt', 'r'))
+    probe_dict = probe_read(r)
     total = 0
     count = 0
 
@@ -78,7 +97,7 @@ def netflix_solve (r, w) :
     predict_ratings = []
     actual_ratings = []
     for k,v in probe_dict.items():
-        #w.write(k + ":" + "\n")
+        w.write(k + ":" + "\n")
         mov_year = movie_date_cache[k]
         mov_year = list(mov_year)
         mov_year[-1] = '0'
@@ -115,22 +134,22 @@ def netflix_solve (r, w) :
 
             
             if (mov_d_avg == 0):
-                p_v = round(((user_stats.median + movie_stats.median + mov_avg + usr_avg + actual_mov_avg + actual_usr_avg)/6), 10)
+                p_v = round(((user_stats.median + movie_stats.median + mov_avg + usr_avg + actual_mov_avg + actual_usr_avg)/6), 1)
             else:
                 #modify according to decade rating value
                 if mov_avg - mov_d_avg < 0 :
                     mov_d_avg += 0.26
                 else:
                     mov_d_avg -= 0.26
-                p_v = round(((user_stats.median + movie_stats.median + mov_avg + usr_avg + mov_d_avg + actual_mov_avg + actual_usr_avg)/7), 10)
+                p_v = round(((user_stats.median + movie_stats.median + mov_avg + usr_avg + mov_d_avg + actual_mov_avg + actual_usr_avg)/7), 1)
             l.append(p_v)
             l.append(u)
             predict_ratings.append(p_v)
             actual_ratings.append(rating_cache[k][u])
-            #w.write(str(p_v) + "\n")   
- 
+            w.write(str(p_v) + "\n")  
+
     assert(len(predict_ratings) == len(actual_ratings))
-    print (str(rmse_zip_list_sum(predict_ratings, actual_ratings)))
+    w.write("RMSE: " + str(round(rmse_zip_list_sum(predict_ratings, actual_ratings),2)))
 
 
 
