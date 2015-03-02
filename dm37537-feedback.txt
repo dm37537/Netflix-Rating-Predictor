@@ -1,0 +1,19 @@
+dm37537-ag42778
+5/5       GitHub private repo with graders invited as collaborator and a log of the commits.
+5/5       GitHub issue tracker with issues from requirements and more.
+15/15     Standard-compliant Python 3.2.3 with an RMSE (two decimal places) of less than 1.00 and a runtime of less than 1 min on probe.txt.
+15/15     Average of 3 unit tests per function with good coverage in the public test repo with the precise naming of the files.
+15/15     100 lines of acceptance tests in the public test repo with the precise naming of the files.
+10/10     Pydoc documentation.
+5/5       Google Form with time estimate.
+5/2       Bonus and Penalty
+70/70     Total
+PASSED
+Bonus:
+    -
+Penalty:
+    jcv643 Passed
+    jdd2654 Passed
+    jdt2737 Passed
+    jjc2828 Passed
+    jrk2593 Failed
