@@ -1,1 +1,1 @@
-# cs373-netflix
+# netflix rating predictor
